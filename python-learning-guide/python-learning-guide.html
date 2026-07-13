@@ -3618,20 +3618,25 @@ docker-compose up --build</code></pre>
 <script src="./_shared/js/mermaid.min.js"></script>
 <script>
     mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'loose' });
+</script>
 
-    // ===== TOC Sidebar =====
-    (function() {
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
         var sidebar = document.getElementById('tocSidebar');
         var list = document.getElementById('tocList');
-        var headings = document.querySelectorAll('article h2, article h3');
-        var tocData = [];
+        if (!list) return;
 
+        var headings = document.querySelectorAll('article h2, article h3');
+        if (headings.length === 0) {
+            headings = document.querySelectorAll('main h2, main h3');
+        }
+
+        var tocData = [];
         headings.forEach(function(h, i) {
             if (!h.id) h.id = 'toc-h-' + i;
-            var text = h.textContent.trim()
-                .replace(/^.*?·\s*/, '')
-                .replace(/^\d+\.\d+\s*/, '')
-                .replace(/^\d+\.\d+\.\d+\s*/, '');
+            var text = h.textContent.trim();
+            text = text.replace(/^.*?·\s*/, '').replace(/^\d+\.\d+\.\d+\s*/, '').replace(/^\d+\.\d+\s*/, '');
+            if (!text) text = h.textContent.trim();
             tocData.push({ id: h.id, text: text, level: h.tagName });
         });
 
@@ -3643,7 +3648,8 @@ docker-compose up --build</code></pre>
             a.className = 'level-' + item.level.charAt(1);
             a.onclick = function(e) {
                 e.preventDefault();
-                document.getElementById(item.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+                var target = document.getElementById(item.id);
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 if (window.innerWidth < 1200) sidebar.classList.remove('open');
             };
             li.appendChild(a);
@@ -3652,7 +3658,7 @@ docker-compose up --build</code></pre>
 
         var links = list.querySelectorAll('a');
         function onScroll() {
-            var scrollPos = window.scrollY + 100;
+            var scrollPos = window.scrollY + 120;
             var current = null;
             headings.forEach(function(h) {
                 if (h.offsetTop <= scrollPos) current = h.id;
@@ -3663,7 +3669,7 @@ docker-compose up --build</code></pre>
         }
         window.addEventListener('scroll', onScroll);
         onScroll();
-    })();
+    });
 </script>
 
 </body>
