@@ -211,6 +211,54 @@
             font-weight: 600;
         }
 
+        /* ===== Knowledge Cards ===== */
+        .knowledge-nav { margin: 2rem 0 3rem; }
+        .knowledge-nav h2 {
+            text-align: center;
+            border-bottom: none;
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            color: var(--accent);
+        }
+        .knowledge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+        }
+        .k-card {
+            display: block;
+            background: var(--bg2);
+            border: 1px solid var(--rule);
+            border-radius: 10px;
+            padding: 1.25rem;
+            text-decoration: none;
+            color: var(--ink);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .k-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(56,189,248,0.12);
+        }
+        .k-card .k-num {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        .k-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0 0 0.4rem;
+            color: var(--ink);
+        }
+        .k-card p {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin: 0;
+        }
+
         /* ===== Code Blocks ===== */
         pre {
             background: var(--code-bg);
@@ -434,6 +482,43 @@
 
 <!-- ===== MAIN CONTENT ===== -->
 <main class="container">
+
+<!-- ===== KNOWLEDGE CARDS ===== -->
+<section class="knowledge-nav">
+    <h2>知识导航</h2>
+    <div class="knowledge-grid">
+        <a class="k-card" href="#ch1">
+            <div class="k-num">01</div>
+            <h3>Python 基础入门</h3>
+            <p>环境搭建、变量、数据类型、函数、模块</p>
+        </a>
+        <a class="k-card" href="#ch2">
+            <div class="k-num">02</div>
+            <h3>Python 核心进阶</h3>
+            <p>面向对象、异常处理、文件IO、生成器、装饰器</p>
+        </a>
+        <a class="k-card" href="#ch3">
+            <div class="k-num">03</div>
+            <h3>Python 高级特性</h3>
+            <p>异步编程、类型提示、元类、GIL与并发</p>
+        </a>
+        <a class="k-card" href="#ch4">
+            <div class="k-num">04</div>
+            <h3>Python 3.10-3.12 新特性</h3>
+            <p>模式匹配、异常组、泛型语法</p>
+        </a>
+        <a class="k-card" href="#ch5">
+            <div class="k-num">05</div>
+            <h3>Python 生态与常用库</h3>
+            <p>Pandas、SQLAlchemy、FastAPI 等企业级库</p>
+        </a>
+        <a class="k-card" href="#ch6">
+            <div class="k-num">06</div>
+            <h3>企业级实战项目</h3>
+            <p>Task Manager 全栈项目、测试、Docker、CI/CD</p>
+        </a>
+    </div>
+</section>
 
 <!-- ==================== CHAPTER 1 ==================== -->
 <article class="chapter" id="ch1">

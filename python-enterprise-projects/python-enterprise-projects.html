@@ -102,6 +102,68 @@
         .project { margin-bottom: 5rem; padding-bottom: 4rem; border-bottom: 1px solid var(--rule); }
         .project:last-child { border-bottom: none; }
 
+        /* ===== Project Cards ===== */
+        .project-nav { margin: 2rem 0 3rem; }
+        .project-nav h2 {
+            text-align: center;
+            border-bottom: none;
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            color: var(--accent2);
+        }
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+        }
+        .p-card {
+            display: block;
+            background: var(--bg2);
+            border: 1px solid var(--rule);
+            border-radius: 10px;
+            padding: 1.25rem;
+            text-decoration: none;
+            color: var(--ink);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .p-card:hover {
+            border-color: var(--accent2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(52,211,153,0.12);
+        }
+        .p-card .p-num {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent2);
+            margin-bottom: 0.5rem;
+        }
+        .p-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0 0 0.4rem;
+            color: var(--ink);
+        }
+        .p-card p {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin: 0;
+        }
+        .p-card .tags {
+            display: flex;
+            gap: 0.4rem;
+            margin-top: 0.6rem;
+            flex-wrap: wrap;
+        }
+        .p-card .tag {
+            font-size: 0.7rem;
+            padding: 0.15rem 0.4rem;
+            background: var(--bg);
+            border-radius: 4px;
+            color: var(--accent2);
+            border: 1px solid var(--rule);
+        }
+
         h2 { font-size: 1.8rem; font-weight: 700; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent); display: inline-block; color: var(--ink); }
         h3 { font-size: 1.3rem; font-weight: 600; margin: 1.8rem 0 0.8rem; color: var(--accent); }
         h4 { font-size: 1.05rem; font-weight: 600; margin: 1.5rem 0 0.6rem; color: var(--muted); }
@@ -276,6 +338,73 @@
 </section>
 
 <main class="container">
+
+<!-- ===== PROJECT CARDS ===== -->
+<section class="project-nav">
+    <h2>项目导航</h2>
+    <div class="project-grid">
+        <a class="p-card" href="#p1">
+            <div class="p-num">01</div>
+            <h3>分布式任务调度系统</h3>
+            <p>Celery + Redis + Flower</p>
+            <div class="tags"><span class="tag">Celery</span><span class="tag">Redis</span></div>
+        </a>
+        <a class="p-card" href="#p2">
+            <div class="p-num">02</div>
+            <h3>实时数据流处理平台</h3>
+            <p>Kafka + Faust + RocksDB</p>
+            <div class="tags"><span class="tag">Kafka</span><span class="tag">Faust</span></div>
+        </a>
+        <a class="p-card" href="#p3">
+            <div class="p-num">03</div>
+            <h3>微服务 API 网关</h3>
+            <p>FastAPI + 限流 + 熔断</p>
+            <div class="tags"><span class="tag">FastAPI</span><span class="tag">Gateway</span></div>
+        </a>
+        <a class="p-card" href="#p4">
+            <div class="p-num">04</div>
+            <h3>电商秒杀系统</h3>
+            <p>Redis Lua + RabbitMQ</p>
+            <div class="tags"><span class="tag">Redis</span><span class="tag">MQ</span></div>
+        </a>
+        <a class="p-card" href="#p5">
+            <div class="p-num">05</div>
+            <h3>智能日志分析平台</h3>
+            <p>ELK Stack + Python 告警</p>
+            <div class="tags"><span class="tag">ELK</span><span class="tag">ES</span></div>
+        </a>
+        <a class="p-card" href="#p6">
+            <div class="p-num">06</div>
+            <h3>企业级 RBAC 权限系统</h3>
+            <p>FastAPI + Casbin + JWT</p>
+            <div class="tags"><span class="tag">Casbin</span><span class="tag">RBAC</span></div>
+        </a>
+        <a class="p-card" href="#p7">
+            <div class="p-num">07</div>
+            <h3>实时消息推送服务</h3>
+            <p>WebSocket + Redis Pub/Sub</p>
+            <div class="tags"><span class="tag">WebSocket</span><span class="tag">Redis</span></div>
+        </a>
+        <a class="p-card" href="#p8">
+            <div class="p-num">08</div>
+            <h3>数据 ETL 流水线</h3>
+            <p>Pandas + Airflow + 质量校验</p>
+            <div class="tags"><span class="tag">Airflow</span><span class="tag">ETL</span></div>
+        </a>
+        <a class="p-card" href="#p9">
+            <div class="p-num">09</div>
+            <h3>文件存储与 CDN 分发</h3>
+            <p>MinIO + 断点续传</p>
+            <div class="tags"><span class="tag">MinIO</span><span class="tag">S3</span></div>
+        </a>
+        <a class="p-card" href="#p10">
+            <div class="p-num">10</div>
+            <h3>AI 智能客服系统</h3>
+            <p>LLM + RAG + WebSocket</p>
+            <div class="tags"><span class="tag">LLM</span><span class="tag">RAG</span></div>
+        </a>
+    </div>
+</section>
 
 <!-- ==================== PROJECT 01 ==================== -->
 <article class="project" id="p1">

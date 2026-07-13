@@ -4,153 +4,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python 企业级学习指南</title>
+    <title>Beiluo's Python Blog</title>
     <style>
         :root {
-            --bg: #0f172a;
-            --bg2: #1e293b;
+            --bg: #0b1120;
+            --bg2: #151e32;
             --ink: #f1f5f9;
             --muted: #94a3b8;
-            --rule: #334155;
+            --rule: #1e293b;
             --accent: #38bdf8;
             --accent2: #34d399;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
             background: var(--bg);
             color: var(--ink);
             line-height: 1.7;
-            min-height: 100vh;
+        }
+        a { color: var(--accent); text-decoration: none; }
+
+        /* Nav */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(11,17,32,0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--rule);
+            z-index: 100;
+        }
+        .nav-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 56px;
+        }
+        .logo {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--ink);
+            letter-spacing: -0.02em;
+        }
+        .logo span { color: var(--accent); }
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+        .nav-links a {
+            color: var(--muted);
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* Hero */
+        .hero {
+            padding: 8rem 1.5rem 4rem;
+            text-align: center;
+            background: radial-gradient(ellipse at 50% 0%, rgba(56,189,248,0.08) 0%, transparent 55%);
+        }
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
+            font-size: 2rem;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 8px 32px rgba(56,189,248,0.2);
         }
-        .container {
-            max-width: 720px;
-            width: 100%;
-            text-align: center;
-        }
-        h1 {
-            font-size: 2.4rem;
+        .hero h1 {
+            font-size: 2rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, var(--accent), var(--accent2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
-        .subtitle {
+        .hero .bio {
             color: var(--muted);
-            font-size: 1.1rem;
-            margin-bottom: 3rem;
+            max-width: 480px;
+            margin: 0 auto 1.5rem;
+            font-size: 0.95rem;
         }
-        .cards {
+        .hero .tags {
+            display: inline-flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .hero .tag {
+            font-size: 0.78rem;
+            padding: 0.25rem 0.6rem;
+            background: var(--bg2);
+            border: 1px solid var(--rule);
+            border-radius: 999px;
+            color: var(--accent);
+        }
+
+        /* Content */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 1.5rem 4rem;
+        }
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Article Cards */
+        .article-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1.5rem;
+            gap: 1rem;
         }
         @media (min-width: 640px) {
-            .cards { grid-template-columns: 1fr 1fr; }
+            .article-grid { grid-template-columns: 1fr 1fr; }
         }
-        .card {
+        .article-card {
             background: var(--bg2);
             border: 1px solid var(--rule);
             border-radius: 12px;
-            padding: 2rem;
+            padding: 1.5rem;
             text-decoration: none;
             color: var(--ink);
             transition: all 0.25s ease;
-            text-align: left;
-        }
-        .card:hover {
-            border-color: var(--accent);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(56, 189, 248, 0.12);
-        }
-        .card-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 10px;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+            flex-direction: column;
         }
-        .card-icon.blue { background: rgba(56, 189, 248, 0.15); }
-        .card-icon.green { background: rgba(52, 211, 153, 0.15); }
-        .card h2 {
-            font-size: 1.25rem;
+        .article-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(56,189,248,0.1);
+        }
+        .article-card .meta {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.78rem;
+            color: var(--muted);
+        }
+        .article-card .meta .badge {
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            background: rgba(56,189,248,0.1);
+            color: var(--accent);
+            font-weight: 500;
+        }
+        .article-card h2 {
+            font-size: 1.15rem;
+            font-weight: 600;
             margin-bottom: 0.5rem;
             color: var(--ink);
         }
-        .card p {
-            font-size: 0.9rem;
+        .article-card p {
+            font-size: 0.88rem;
             color: var(--muted);
             line-height: 1.6;
+            flex-grow: 1;
         }
-        .card .arrow {
-            display: inline-block;
+        .article-card .arrow {
             margin-top: 1rem;
+            font-size: 0.85rem;
             color: var(--accent);
-            font-size: 0.875rem;
             font-weight: 500;
         }
-        .card:hover .arrow {
+        .article-card:hover .arrow {
             text-decoration: underline;
         }
+
+        /* Footer */
         footer {
-            margin-top: 3rem;
+            text-align: center;
+            padding: 2rem 1rem;
+            border-top: 1px solid var(--rule);
             color: var(--muted);
             font-size: 0.8rem;
         }
-        .badge {
-            display: inline-block;
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            margin-top: 0.75rem;
-        }
-        .badge.blue { background: rgba(56, 189, 248, 0.12); color: var(--accent); }
-        .badge.green { background: rgba(52, 211, 153, 0.12); color: var(--accent2); }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Python 企业级学习指南</h1>
-        <p class="subtitle">从零基础到企业实战的完整学习路径</p>
 
-        <div class="cards">
-            <a class="card" href="./python-learning-guide/python-learning-guide.html">
-                <div class="card-icon blue">&#128218;</div>
-                <h2>Python 完整学习文档</h2>
-                <p>涵盖 Python 基础、进阶、异步编程、类型系统、标准库及 FastAPI 企业项目，适合零基础到进阶开发者。</p>
-                <span class="arrow">开始学习 &rarr;</span>
-                <div>
-                    <span class="badge blue">6 章内容</span>
-                    <span class="badge blue">完整代码</span>
-                </div>
-            </a>
-
-            <a class="card" href="./python-enterprise-projects/python-enterprise-projects.html">
-                <div class="card-icon green">&#128187;</div>
-                <h2>企业级实战项目案例集</h2>
-                <p>10个企业级项目：分布式任务调度、实时流处理、API 网关、秒杀系统、RBAC、ETL、AI 客服等。</p>
-                <span class="arrow">查看项目 &rarr;</span>
-                <div>
-                    <span class="badge green">10 个项目</span>
-                    <span class="badge green">技术方案 + 源码</span>
-                </div>
-            </a>
-        </div>
-
-        <footer>
-            <p>Generated by Trae Work &middot; Python 3.12+</p>
-        </footer>
+<nav>
+    <div class="nav-inner">
+        <div class="logo">Beiluo<span>.</span>dev</div>
+        <ul class="nav-links">
+            <li><a href="#">首页</a></li>
+            <li><a href="./python-learning-guide/python-learning-guide.html">学习文档</a></li>
+            <li><a href="./python-enterprise-projects/python-enterprise-projects.html">项目实战</a></li>
+        </ul>
     </div>
+</nav>
+
+<section class="hero">
+    <div class="avatar">&#128187;</div>
+    <h1>Beiluo's Python Blog</h1>
+    <p class="bio">从零基础到企业级 Python 开发工程师的学习记录。分享 Python 核心技术、企业实战项目与个人成长心得。</p>
+    <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">FastAPI</span>
+        <span class="tag">分布式系统</span>
+        <span class="tag">AI</span>
+    </div>
+</section>
+
+<div class="container">
+    <div class="section-title">&#128221; 最新文章</div>
+    <div class="article-grid">
+        <a class="article-card" href="./python-learning-guide/python-learning-guide.html">
+            <div class="meta">
+                <span class="badge">学习笔记</span>
+                <span>6 章</span>
+            </div>
+            <h2>Python 完整学习文档</h2>
+            <p>从变量、函数到异步编程、类型系统，再到 FastAPI 企业级项目实战。零基础入门到进阶的完整路径。</p>
+            <div class="arrow">阅读全文 &rarr;</div>
+        </a>
+
+        <a class="article-card" href="./python-enterprise-projects/python-enterprise-projects.html">
+            <div class="meta">
+                <span class="badge" style="background:rgba(52,211,153,0.1);color:var(--accent2);">项目实战</span>
+                <span>10 个项目</span>
+            </div>
+            <h2>企业级实战项目案例集</h2>
+            <p>Celery 任务调度、Kafka 流处理、秒杀系统、RBAC 权限、ETL 流水线、AI 智能客服等 10 个企业级项目。</p>
+            <div class="arrow">阅读全文 &rarr;</div>
+        </a>
+    </div>
+</div>
+
+<footer>
+    <p>Beiluo's Python Blog &middot; Built with TRAE</p>
+</footer>
+
 </body>
 </html>
