@@ -174,68 +174,6 @@
         strong { color: var(--ink); font-weight: 600; }
         mark.key { background: none; color: var(--accent); font-weight: 600; }
 
-        /* ===== TOC Sidebar ===== */
-        .toc-sidebar {
-            position: fixed;
-            top: 0; right: 0;
-            width: 250px;
-            height: 100vh;
-            background: var(--bg2);
-            border-left: 1px solid var(--rule);
-            padding: 1.25rem 0.75rem;
-            overflow-y: auto;
-            z-index: 50;
-            transition: transform 0.3s ease;
-        }
-        .toc-sidebar h3 {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 0.75rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--rule);
-        }
-        .toc-sidebar ul { list-style: none; margin: 0; padding: 0; }
-        .toc-sidebar li { margin: 0; }
-        .toc-sidebar a {
-            display: block;
-            padding: 0.3rem 0.5rem;
-            border-radius: 6px;
-            color: var(--muted);
-            font-size: 0.8rem;
-            line-height: 1.45;
-            transition: all 0.15s;
-            text-decoration: none;
-        }
-        .toc-sidebar a:hover { background: rgba(52,211,153,0.08); color: var(--accent2); }
-        .toc-sidebar a.active { background: rgba(52,211,153,0.12); color: var(--accent2); font-weight: 600; }
-        .toc-sidebar a.level-2 { padding-left: 0.5rem; }
-        .toc-sidebar a.level-3 { padding-left: 1.1rem; font-size: 0.76rem; }
-        .toc-toggle {
-            display: none;
-            position: fixed;
-            bottom: 1.5rem; right: 1.5rem;
-            width: 44px; height: 44px;
-            border-radius: 50%;
-            background: var(--accent2);
-            color: #fff;
-            border: none;
-            font-size: 1.25rem;
-            cursor: pointer;
-            z-index: 60;
-            box-shadow: 0 4px 16px rgba(52,211,153,0.3);
-            align-items: center;
-            justify-content: center;
-        }
-        @media (max-width: 1200px) {
-            .toc-sidebar { transform: translateX(100%); }
-            .toc-sidebar.open { transform: translateX(0); }
-            .toc-toggle { display: flex; }
-        }
-        @media (min-width: 1201px) { body { padding-right: 250px; } }
-
         pre {
             background: var(--code-bg);
             color: var(--code-ink);
@@ -318,12 +256,6 @@
     </style>
 </head>
 <body>
-
-<nav class="toc-sidebar" id="tocSidebar">
-    <h3>大纲</h3>
-    <ul id="tocList"></ul>
-</nav>
-<button class="toc-toggle" id="tocToggle" onclick="document.getElementById('tocSidebar').classList.toggle('open')">&#9776;</button>
 
 <header class="hero">
     <div class="hero-content container">
@@ -2763,58 +2695,6 @@ async def chat_websocket(websocket: WebSocket):
 <script src="./_shared/js/mermaid.min.js"></script>
 <script>
     mermaid.initialize({ startOnLoad: true, theme: 'dark', securityLevel: 'loose' });
-</script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var sidebar = document.getElementById('tocSidebar');
-        var list = document.getElementById('tocList');
-        if (!list) return;
-
-        var headings = document.querySelectorAll('article h2, article h3');
-        if (headings.length === 0) {
-            headings = document.querySelectorAll('main h2, main h3');
-        }
-
-        var tocData = [];
-        headings.forEach(function(h, i) {
-            if (!h.id) h.id = 'toc-h-' + i;
-            var text = h.textContent.trim();
-            text = text.replace(/^.*?·\s*/, '').replace(/^\d+\.\d+\.\d+\s*/, '').replace(/^\d+\.\d+\s*/, '');
-            if (!text) text = h.textContent.trim();
-            tocData.push({ id: h.id, text: text, level: h.tagName });
-        });
-
-        tocData.forEach(function(item) {
-            var li = document.createElement('li');
-            var a = document.createElement('a');
-            a.href = '#' + item.id;
-            a.textContent = item.text;
-            a.className = 'level-' + item.level.charAt(1);
-            a.onclick = function(e) {
-                e.preventDefault();
-                var target = document.getElementById(item.id);
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                if (window.innerWidth < 1200) sidebar.classList.remove('open');
-            };
-            li.appendChild(a);
-            list.appendChild(li);
-        });
-
-        var links = list.querySelectorAll('a');
-        function onScroll() {
-            var scrollPos = window.scrollY + 120;
-            var current = null;
-            headings.forEach(function(h) {
-                if (h.offsetTop <= scrollPos) current = h.id;
-            });
-            links.forEach(function(a) {
-                a.classList.toggle('active', a.getAttribute('href') === '#' + current);
-            });
-        }
-        window.addEventListener('scroll', onScroll);
-        onScroll();
-    });
 </script>
 
 </body>
